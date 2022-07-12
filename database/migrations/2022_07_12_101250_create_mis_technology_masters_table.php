@@ -14,7 +14,12 @@ class CreateMisTechnologyMastersTable extends Migration
     public function up()
     {
         Schema::create('mis_technology_masters', function (Blueprint $table) {
-            $table->id();
+            $table->bigIncrements('category_id');
+            $table->string('category_name');
+            $table->text('category_desc');
+            $table->integer('type_id');
+            $table->integer('department_id');
+            $table->tinyInteger('is_active')->default(0);
             $table->timestamps();
         });
     }

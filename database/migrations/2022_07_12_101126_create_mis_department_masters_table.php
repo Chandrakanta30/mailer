@@ -15,6 +15,9 @@ class CreateMisDepartmentMastersTable extends Migration
     {
         Schema::create('mis_department_masters', function (Blueprint $table) {
             $table->id();
+            $table->string('department_name');
+            $table->string('department_code');
+            $table->text('department_description');
             $table->timestamps();
         });
     }

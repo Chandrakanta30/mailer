@@ -15,6 +15,8 @@ class CreateUserTechnologiesTable extends Migration
     {
         Schema::create('user_technologies', function (Blueprint $table) {
             $table->id();
+            $table->integer('user_id');
+            $table->integer('tech_id');
             $table->timestamps();
         });
     }

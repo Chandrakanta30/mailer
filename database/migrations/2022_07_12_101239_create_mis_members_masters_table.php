@@ -14,7 +14,13 @@ class CreateMisMembersMastersTable extends Migration
     public function up()
     {
         Schema::create('mis_members_masters', function (Blueprint $table) {
-            $table->id();
+            $table->increments('team_member_id');
+            $table->integer('user_id');
+            $table->integer('team_id');
+            $table->integer('created_by');
+            $table->integer('updated_by');
+            $table->dateTime('created_on');
+            $table->dateTime('updated_on');
             $table->timestamps();
         });
     }

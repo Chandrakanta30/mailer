@@ -14,7 +14,9 @@ class CreateMisDepartmentHeadTechnologiesTable extends Migration
     public function up()
     {
         Schema::create('mis_department_head_technologies', function (Blueprint $table) {
-            $table->id();
+            $table->bigIncrements('tech_id');
+            $table->integer('head_id');
+            $table->integer('technology_id');
             $table->timestamps();
         });
     }

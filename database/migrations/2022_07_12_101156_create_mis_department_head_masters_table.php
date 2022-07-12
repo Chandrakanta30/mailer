@@ -14,7 +14,12 @@ class CreateMisDepartmentHeadMastersTable extends Migration
     public function up()
     {
         Schema::create('mis_department_head_masters', function (Blueprint $table) {
-            $table->id();
+            $table->increments('head_id');
+            $table->integer('department_id')->nullable();
+            $table->integer('user_id')->nullable();
+            $table->integer('created_by')->nullable();
+            $table->integer('updated_by')->nullable();
+
             $table->timestamps();
         });
     }
