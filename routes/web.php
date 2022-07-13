@@ -15,6 +15,6 @@ use App\Http\Controllers\EmployeeLoginController;
 
 Route::get('/', function () {
     return view('welcome');
-});
+})->name('home');
 
 Route::resource('employee',EmployeeLoginController::class);
