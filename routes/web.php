@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\EmployeeLoginController;
+use App\Http\Controllers\MailSendingController;
 use App\Http\Controllers\SMTPController;
 
 /*
@@ -21,3 +22,4 @@ Route::get('/', function () {
 
 Route::resource('employee',EmployeeLoginController::class);
 Route::resource('smtp',SMTPController::class);
+Route::resource('mail',MailSendingController::class);
