@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use App\Models\EmployeeLogin;
 class EmployeeLoginController extends Controller
 {
     /**
@@ -13,7 +13,8 @@ class EmployeeLoginController extends Controller
      */
     public function index()
     {
-        return view("employee.index");
+        $employees=EmployeeLogin::paginate();
+        return view("employee.index",compact('employees'));
     }
 
     /**
@@ -34,7 +35,12 @@ class EmployeeLoginController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $employee=new EmployeeLogin();
+        $employee->name=$request->name;
+        $employee->user_emailaddress=$request->email;
+        $employee->password=bcrypt($request->password);
+        $employee->save();
+        return redirect()->back();
     }
 
     /**

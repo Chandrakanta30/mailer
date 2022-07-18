@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\EmployeeLoginController;
+use App\Http\Controllers\SMTPController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -18,3 +20,4 @@ Route::get('/', function () {
 })->name('home');
 
 Route::resource('employee',EmployeeLoginController::class);
+Route::resource('smtp',SMTPController::class);

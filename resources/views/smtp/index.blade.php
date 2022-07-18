@@ -6,12 +6,12 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1>Employee Login List</h1>
+                        <h1>SMTP Details</h1>
                     </div>
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
                             <li class="breadcrumb-item"><a href="#">Home</a></li>
-                            <li class="breadcrumb-item active">Employee Logins</li>
+                            <li class="breadcrumb-item active">SMTP Details</li>
                         </ol>
                     </div>
                 </div>
@@ -24,7 +24,7 @@
                     <div class="col-md-12">
                         <div class="card">
                             <div class="card-header">
-                                <h3 class="card-title">Employee Logins</h3>
+                                <h3 class="card-title">Smtp List</h3>
                             </div>
 
                             <div class="card-body">
@@ -33,25 +33,26 @@
                                         <tr>
                                             <th style="width: 10px">#</th>
                                             <th>Name</th>
-                                            <th>Email</th>
+                                            <th>Host</th>
+                                            <th>From Address</th>
                                             <th style="width: 40px">Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-
-                                        @foreach ($employees as $key=> $item)
+                                        @foreach ($smtp as $key => $item)
 
                                         <tr>
-                                            <td>{{$key+1}}.</td>
-                                            <td> {{$item->name}}</td>
+                                            <td>{{$key+1}}</td>
+                                            <td>{{ $item->name }}</td>
                                             <td>
-                                                {{$item->user_emailaddress}}
+                                                {{ $item->smtp_host }}
                                             </td>
+                                            <td>{{ $item->from_email }}</td>
                                             <td></td>
                                         </tr>
                                             
                                         @endforeach
-                                       
+                                        
                                         
                                     </tbody>
                                 </table>
@@ -59,12 +60,10 @@
 
                             <div class="card-footer clearfix">
                                 <ul class="pagination pagination-sm m-0 float-right">
-                                    {{ $employees->links() }}
+                                    {{$smtp->links()}}
                                 </ul>
                             </div>
                         </div>
-
-                      
 
                     </div>
                 </div>

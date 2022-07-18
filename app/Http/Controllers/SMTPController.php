@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Smtp;
 
 class SMTPController extends Controller
 {
@@ -13,7 +14,8 @@ class SMTPController extends Controller
      */
     public function index()
     {
-        //
+        $smtp=Smtp::paginate();
+        return view('smtp.index',compact('smtp'));
     }
 
     /**
@@ -23,7 +25,7 @@ class SMTPController extends Controller
      */
     public function create()
     {
-        //
+        return view('smtp.add');
     }
 
     /**
@@ -34,7 +36,16 @@ class SMTPController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $smtp=new Smtp();
+        $smtp->name=$request->mailer_name;
+        $smtp->smtp_host=$request->host;
+        $smtp->port=($request->port);
+        $smtp->user_name=$request->username;
+        $smtp->password=$request->password;
+        $smtp->from_email=($request->from_mail);
+        $smtp->encryption=$request->encryption;
+        $smtp->save();
+        return redirect()->back();
     }
 
     /**
