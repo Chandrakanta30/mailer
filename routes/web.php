@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\EmployeeLoginController;
 use App\Http\Controllers\MailSendingController;
+use App\Http\Controllers\Role;
 use App\Http\Controllers\SMTPController;
 
 /*
@@ -20,6 +21,11 @@ Route::get('/', function () {
     return view('welcome');
 })->name('home');
 
+Route::get('login',function(){
+    return view('auth.login');
+})->name('login');
+
 Route::resource('employee',EmployeeLoginController::class);
 Route::resource('smtp',SMTPController::class);
 Route::resource('mail',MailSendingController::class);
+Route::resource('role',Role::class);

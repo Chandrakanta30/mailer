@@ -22,6 +22,7 @@
     <link rel="stylesheet" href="{{ asset('/plugins/jqvmap/jqvmap.min.css') }}">
     <!-- JQuery -->
     <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+    {{-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> --}}
     <!-- Theme style -->
     <link rel="stylesheet" href="{{ asset('/dist/css/adminlte.min.css') }}">
     <!-- overlayScrollbars -->
