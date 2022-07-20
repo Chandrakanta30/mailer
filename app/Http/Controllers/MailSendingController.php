@@ -56,9 +56,11 @@ class MailSendingController extends Controller
             'subject' => $request->subject,
             'attachment' => $attachments,
         );
-        $user =  ["subhankar0810@gmail.com"];
+        $user =  ["subhankar.dutta@neosoftmail.com"];
+        $cc = ["chandrakanta.haransingh@neosoftmail.com"];
         $mail = new MailSending($request->subject,$attachments,$request->body);
         $mail->to($user);
+        $mail->cc($cc);
         $mail->build();
         Mail::send($mail);
         dd($mail);
