@@ -11,7 +11,6 @@ class MailSending extends Mailable
 {
     use Queueable, SerializesModels;
     public $subject;
-    public $to;
     public $attachments;
     public $body;
     /**
@@ -19,10 +18,9 @@ class MailSending extends Mailable
      *
      * @return void
      */
-    public function __construct($subject,$to,$attachments,$body)
+    public function __construct($subject,$attachments,$body)
     {
         $this->subject = $subject;
-        $this->to = $to;
         $this->attachments = $attachments;
         $this->body = $body;
     }
@@ -34,7 +32,7 @@ class MailSending extends Mailable
      */
     public function build()
     {
-        return $this->subject($this->subject)->to("subhankar0810@gmail.com","Subhankar Dutta")->view('mail.create',['body'=>$this->body]);
+        return $this->subject($this->subject)->view('mail.create',['body'=>$this->body]);
 
             // foreach($this->attachments as $attachment){
             //     $this->attach($attachment);

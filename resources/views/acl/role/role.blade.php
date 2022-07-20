@@ -56,22 +56,6 @@
                 $.jstree.reference('#jstree').select_node('child_node_1');
             });
         });
-        $('#roles').on('change', function() {
-            var role_id = $(this).val();
-            if (role_id) {
-                $.ajax({
-                    url: "{{ route('roles.getpermissions') }}",
-                    type: "GET",
-                    data: {
-                        role_id: role_id
-                    },
-                    success: function(res) {
-                        console.log(res);
-                        $('#jstree').jstree(true).settings.core.data = res;
-                        $('#jstree').jstree(true).refresh();
-                    }
-                });
-            }
-        });
+        
     </script>
 @endsection

@@ -45,17 +45,21 @@ class MailSendingController extends Controller
         $files = $request->file('attachment');
         $attachments = array();
         // files added to the array
-        foreach ($files as $file) {
-            $ful = $file->store('public/attachments');
-            $attachments[] = Storage::url($ful);
+        if(!empty($files)){
+            foreach ($files as $file) {
+                $ful = $file->store('public/attachments');
+                $attachments[] = Storage::url($ful);
+            }
         }
-        // $data = $request->all();
-        // Mail::send('mail.create', $data, function ($message) use ($data) {
-        //     $message->to($data['to_email'], $data['to_name'])->subject($data['subject']);
-
-        // });
-        $mail = new MailSending($request->subject,"subhankar0810@gmail.com",$attachments,$request->body);
-        // $mail->build();
+        $data = array(
+            'body' => $request->body,
+            'subject' => $request->subject,
+            'attachment' => $attachments,
+        );
+        $user =  ["subhankar0810@gmail.com"];
+        $mail = new MailSending($request->subject,$attachments,$request->body);
+        $mail->to($user);
+        $mail->build();
         Mail::send($mail);
         dd($mail);
 

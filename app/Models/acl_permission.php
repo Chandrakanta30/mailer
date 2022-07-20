@@ -10,6 +10,6 @@ class acl_permission extends Model
     use HasFactory;
     public function acl_roles()
     {
-        return $this->belongsToMany(acl_role_permission::class);
+        return $this->belongsToMany(acl_roles::class,'acl_role_permissions');
     }
 }

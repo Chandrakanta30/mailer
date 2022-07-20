@@ -82,4 +82,11 @@ class Role extends Controller
     {
         //
     }
+    public function getPermissions(Request $request)
+    {
+        $role = \App\Models\acl_roles::find($request->id);
+        $permissions = $role->permissions;
+        $permissions_list = \App\Models\acl_permission::all();
+        return view('acl.role.permission',compact('role','permissions','permissions_list'));
+    }
 }
