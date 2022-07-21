@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-class Role extends Controller
+class UserRole extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,7 +14,8 @@ class Role extends Controller
     public function index()
     {
         $roles = \App\Models\acl_roles::all();
-        return view('acl.role.role',compact('roles'));
+        $users = \App\Models\User::all();
+        return view('acl.role.user',compact('users','roles'));
     }
 
     /**
@@ -82,22 +83,23 @@ class Role extends Controller
     {
         //
     }
-    public function getPermissions(Request $request)
+    public function getUserByRole(Request $request)
     {
-        $role = \App\Models\acl_roles::find($request->role_id);
-        $permissions = $role->acl_permissions;
-        $permissions_list = \App\Models\acl_permission::all();
-        $response = [
-            'permissions' => $permissions,
-            'permissions_list' => $permissions_list
-        ];
-        return response()->json($response, 200);
+        $role_id = $request->role_id;
+        $users2 = \App\Models\User::all();
+        $users = \App\Models\User::whereHas('roles', function($q) use ($role_id) {
+            $q->where('id', $role_id);
+        })->get();
+        return response()->json(['users'=>$users,'users2'=>$users2]);
     }
-    public function addPermission(Request $request)
+    public function assign_role_to_user(Request $request)
     {
-        $role = \App\Models\acl_roles::find($request->role_id);
-        $role->acl_permissions()->detach();
-        $role->acl_permissions()->attach($request->selected_permission);
-        return response()->json(['success' => 'Permission added successfully.'], 200);
+        //you will recive a set of user ids
+        foreach($request->user_ids as $user_id){
+            $user = \App\Models\User::find($user_id);
+            $user->update(['roleid'=>$request->role_id]);
+            $user->save();
+        }
+        return response()->json(['success'=>'Role Assigned Successfully']);
     }
 }

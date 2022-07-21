@@ -5,6 +5,7 @@ use App\Http\Controllers\EmployeeLoginController;
 use App\Http\Controllers\MailSendingController;
 use App\Http\Controllers\Role;
 use App\Http\Controllers\SMTPController;
+use App\Http\Controllers\UserRole;
 
 /*
 |--------------------------------------------------------------------------
@@ -29,3 +30,8 @@ Route::resource('employee',EmployeeLoginController::class);
 Route::resource('smtp',SMTPController::class);
 Route::resource('mail',MailSendingController::class);
 Route::resource('role',Role::class);
+Route::resource('acl-user',UserRole::class);
+Route::get('/get-my-roles', [Role::class,'getPermissions'])->name('my-roles');
+Route::post('/add-permission', [Role::class,'addPermission'])->name('add-permission');
+Route::get('getUserByRole',[UserRole::class,'getUserByRole'])->name('get_users_by_role');
+Route::post('assign_role_to_user',[UserRole::class,'assign_role_to_user'])->name('assign_role_to_user');
