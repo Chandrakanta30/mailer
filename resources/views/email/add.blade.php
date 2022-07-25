@@ -36,7 +36,7 @@
                                 <div class="card-body">
                                     <div class="form-group">
                                         <label for="exampleInputEmail1">Select Smtp Server</label>
-                                        <select class="form-control" name="smtp_server">
+                                        <select class="form-control" name="smtp_server" required>
                                             <option value="">Select Smtp Server</option>
                                             @foreach ($smtp_servers as $smtp_server)
                                                 <option value="{{ $smtp_server->id }}">{{ $smtp_server->name }}</option>
@@ -46,7 +46,7 @@
                                     <div class="form-group">
                                         <label for="exampleInputEmail1">Select Department</label>
                                         <select class="form-control select2" name="department[]" multiple="multiple"
-                                            id="dept">
+                                            id="dept" required>
                                             <option value="">Select Department</option>
                                             @foreach ($departments as $department)
                                                 <option value="{{ $department->id }}">{{ $department->department_name }}
@@ -57,7 +57,7 @@
                                     <div class="form-group">
                                         <label for="exampleInputEmail1">Select Tech</label>
                                         <select class="form-control select2" name="tech[]" multiple="multiple"
-                                            id="techs">
+                                            id="techs" required>
                                             <option value="">Select Tech</option>
                                             @foreach ($techs as $tech)
                                                 <option value="{{ $tech->category_id }}">{{ $tech->category_name }}
@@ -69,12 +69,12 @@
                                     <div class="form-group">
                                         <label for="subject">Subject</label>
                                         <input type="text" name="subject" id="subject" class="form-control"
-                                            placeholder="Subject">
+                                            placeholder="Subject" required>
                                     </div>
                                     <div class="form-group">
                                         <label for="subject">Message Body</label>
 
-                                        <textarea id="summernote" name="body">
+                                        <textarea id="summernote" name="body" required>
 
                                     </textarea>
                                     </div>
@@ -85,9 +85,6 @@
                                                 <input type="file" name="attachment[]" multiple="multiple"
                                                     class="custom-file-input" id="exampleInputFile">
                                                 <label class="custom-file-label" for="exampleInputFile">Choose file</label>
-                                            </div>
-                                            <div class="input-group-append">
-                                                <span class="input-group-text" id="">Upload</span>
                                             </div>
                                         </div>
                                     </div>
