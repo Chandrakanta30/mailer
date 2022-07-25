@@ -30,8 +30,8 @@
                             </div>
 
 
-                            <form action="{{ route('mail.store') }}" id="loginform" class="login-form" method="POST"
-                                enctype="multipart/form-data">
+                            <form action="{{ route('adminchecker.store') }}" id="loginform" class="login-form"
+                                method="POST" enctype="multipart/form-data">
                                 @csrf
                                 <div class="card-body">
                                     <div class="form-group">
@@ -90,6 +90,11 @@
                                     </div>
 
 
+                                    <div class="form-group">
+                                        <label for="subject">Date and Time to send</label>
+                                        <input type="datetime-local" name="datetime" id="datetime" class="form-control"
+                                            placeholder="Date time" required>
+                                    </div>
                                 </div>
 
                                 <div class="card-footer">

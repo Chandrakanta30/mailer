@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminCheckerController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\EmployeeLoginController;
 use App\Http\Controllers\MailSendingController;
@@ -31,6 +32,7 @@ Route::resource('smtp',SMTPController::class);
 Route::resource('mail',MailSendingController::class);
 Route::resource('role',Role::class);
 Route::resource('acl-user',UserRole::class);
+Route::resource('adminchecker',AdminCheckerController::class);
 Route::get('/get-my-roles', [Role::class,'getPermissions'])->name('my-roles');
 Route::post('/add-permission', [Role::class,'addPermission'])->name('add-permission');
 Route::get('getUserByRole',[UserRole::class,'getUserByRole'])->name('get_users_by_role');
