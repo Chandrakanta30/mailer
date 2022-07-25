@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
-class EmployeeLogin extends Authenticatable
+class AdminLogin extends Authenticatable
 {
     use HasFactory;
     protected $guarded = [];

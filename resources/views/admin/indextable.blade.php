@@ -5,11 +5,13 @@
         <table id="example" class="display" style="width: 100%">
             <thead>
                 <tr>
-                    <th>Name</th>
-                    <th>Position</th>
-                    <th>Office</th>
-                    <th>Extn.</th>
+                    <th>ID</th>
+                    <th>Subject</th>
+                    <th>Sending Date</th>
+                    <th>Action</th>
+                    <th>Status</th>
                 </tr>
+
             </thead>
         </table>
     </div>
@@ -17,36 +19,25 @@
 
     <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.js"></script>
     <script>
-        var data = [{
-                "name": "Tiger Nixon",
-                "position": "System Architect",
-                "salary": "$3,120",
-                "start_date": "2011/04/25",
-                "office": "Edinburgh",
-                "extn": "5421"
-            },
-            {
-                "name": "Garrett Winters",
-                "position": "Director",
-                "salary": "$5,300",
-                "start_date": "2011/07/25",
-                "office": "Edinburgh",
-                "extn": "8422"
-            }
-        ];
         $('#example').DataTable({
-            data: data,
+            ajax: {
+                url: "{{ route('adminchecker.getInfos') }}",
+                dataSrc: '',
+            },
             columns: [{
-                    data: 'name'
+                    data: 'smpt_id'
                 },
                 {
-                    data: 'position'
+                    data: 'subject'
                 },
                 {
-                    data: 'salary'
+                    data: 'date_time'
                 },
                 {
-                    data: 'office'
+                    data: 'action'
+                },
+                {
+                    data: 'view'
                 }
             ]
         });

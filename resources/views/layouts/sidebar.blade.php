@@ -130,6 +130,9 @@
                         </li>
                     </ul>
                 </li>
+                <li>
+                    <a href="{{ route('logout') }}">Logout</a>
+                </li>
                 {{-- @endcan --}}
 
 

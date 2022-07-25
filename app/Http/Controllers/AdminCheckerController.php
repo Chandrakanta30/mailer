@@ -14,7 +14,8 @@ class AdminCheckerController extends Controller
      */
     public function index()
     {
-        return view('admin.indextable');
+        $admincheckers = AdminChecker::all();
+        return view('admin.indextable',compact('admincheckers'));
     }
     public function create()
     {
@@ -73,6 +74,11 @@ class AdminCheckerController extends Controller
     public function destroy($id)
     {
         //
+    }
+    public function getInfos()
+    {
+        $adminchecker = AdminChecker::all();
+        return response()->json($adminchecker);
     }
 
 
