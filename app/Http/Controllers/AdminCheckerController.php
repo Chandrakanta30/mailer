@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\AdminChecker;
+use App\Models\Smtp;
 use Illuminate\Http\Request;
 
 class AdminCheckerController extends Controller
@@ -65,7 +66,25 @@ class AdminCheckerController extends Controller
     }
     public function edit($id)
     {
-        //
+        $info = AdminChecker::find($id);
+        $smtp = Smtp::find($info->smpt_id);
+        $departments = explode(',',$info->department);
+        $techs = explode(',',$info->tech);
+        $department_data = array();
+        $tech_data = [];
+        foreach($departments as $department){
+            $dept_info = \App\Models\mis_department_master::find($department);
+            $department_data[] = array('id'=>$department,'name'=>$dept_info->department_name);
+        }
+        foreach($techs as $tech){
+            $tech_info = \App\Models\mis_technology_master::find($tech);
+            $tech_data[] = [
+                'id' => $tech_info->category_id,
+                'name' => $tech_info->category_name,
+            ];
+        }
+        // dd($department_data);
+        return view('admin.singleview',compact('info','smtp','department_data','tech_data'));
     }
     public function update(Request $request, $id)
     {
@@ -80,6 +99,21 @@ class AdminCheckerController extends Controller
         $adminchecker = AdminChecker::all();
         return response()->json($adminchecker);
     }
-
+    //accept the request
+    public function accept($id)
+    {
+        $adminchecker = AdminChecker::find($id);
+        $adminchecker->status = 1;
+        $adminchecker->save();
+        return redirect()->route('adminchecker.index');
+    }
+    //reject the request
+    public function reject($id)
+    {
+        $adminchecker = AdminChecker::find($id);
+        $adminchecker->status = 2;
+        $adminchecker->save();
+        return redirect()->route('adminchecker.index');
+    }
 
 }

@@ -17,6 +17,6 @@ class AdminChecker extends Model
 
     public function getActionAttribute()
     {
-        return '<a href="'.route('adminchecker.edit',$this->id).'" class="btn btn-primary btn-sm">Edit</a>';
+        return '<a href="'.route('adminchecker.edit',$this->id).'" class="btn btn-primary btn-sm">Accept</a>';
     }
 }

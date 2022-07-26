@@ -130,8 +130,15 @@
                         </li>
                     </ul>
                 </li>
-                <li>
-                    <a href="{{ route('logout') }}">Logout</a>
+                <li class="nav-item">
+                    <a href="/adminchecker" class="nav-link">
+                        <i class="far fa-circle nav-icon"></i>
+                        Admin Check</a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{ route('logout') }}" class="nav-link">
+                        <i class="far fa-circle nav-icon"></i>
+                        Logout</a>
                 </li>
                 {{-- @endcan --}}
 

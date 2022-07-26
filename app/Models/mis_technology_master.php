@@ -8,4 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class mis_technology_master extends Model
 {
     use HasFactory;
+    protected $guarded = [];
+    protected $primaryKey = 'category_id';
 }

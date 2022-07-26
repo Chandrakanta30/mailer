@@ -34,6 +34,9 @@ Route::middleware('auth')->group(function(){
     Route::resource('mail',MailSendingController::class);
     Route::resource('role',Role::class);
     Route::resource('acl-user',UserRole::class);
+
+    Route::post('/mail-accept',[AdminCheckerController::class,'accept'])->name('adminchecker.accept');
+    Route::post('/mail-reject',[AdminCheckerController::class,'accept'])->name('adminchecker.reject');
     Route::resource('adminchecker',AdminCheckerController::class);
     Route::get('/adminchecks',[AdminCheckerController::class,'getInfos'])->name('adminchecker.getInfos');
     Route::get('/get-my-roles', [Role::class,'getPermissions'])->name('my-roles');

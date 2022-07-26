@@ -9,7 +9,7 @@
                     <th>Subject</th>
                     <th>Sending Date</th>
                     <th>Action</th>
-                    <th>Status</th>
+                    <th>View</th>
                 </tr>
 
             </thead>
