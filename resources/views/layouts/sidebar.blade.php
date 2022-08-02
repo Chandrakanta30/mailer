@@ -7,7 +7,7 @@
         <div class="user-panel mt-3 pb-3 mb-3 d-flex">
 
             <div class="info">
-                <a href="#" class="d-block">Alexander Pierce</a>
+                <a href="#" class="d-block">{{Auth()->user()->name}}</a>
             </div>
         </div>
 
@@ -19,7 +19,7 @@
                 <!-- Add icons to the links using the .nav-icon class
        with font-awesome or any other icon font library -->
                 <li class="nav-item menu-open">
-                    <a href="{{ route('home') }}" class="nav-link active">
+                    <a href="{{ route('home') }}" class="nav-link {{ Route::currentRouteName() == 'home' ? 'active' : '' }}">
                         <i class="nav-icon fas fa-tachometer-alt"></i>
                         <p>
                             Dashboard
@@ -30,24 +30,24 @@
 
 
                 <li class="nav-item">
-                    <a href="#" class="nav-link">
+                    <a href="#" class="nav-link {{ Route::currentRouteName() == 'employee.create' ? 'active' : '' }} || {{ Route::currentRouteName() == 'employee.index' ? 'active' : '' }}">
                         <i class="nav-icon fas fa-copy"></i>
                         <p>
-                            Employees Login
+                            Users
                             <i class="fas fa-angle-left right"></i>
                         </p>
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="{{ route('employee.create') }}" class="nav-link">
+                            <a href="{{ route('employee.create') }}" class="nav-link {{ Route::currentRouteName() == 'employee.create' ? 'active' : '' }} ">
                                 <i class="far fa-circle nav-icon"></i>
-                                <p>Add Employee</p>
+                                <p>Add Users</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{ route('employee.index') }}" class="nav-link">
+                            <a href="{{ route('employee.index') }}" class="nav-link {{ Route::currentRouteName() == 'employee.index' ? 'active' : '' }}">
                                 <i class="far fa-circle nav-icon"></i>
-                                <p>Employees List</p>
+                                <p>Users List</p>
                             </a>
                         </li>
                     </ul>
@@ -83,7 +83,7 @@
                     </ul>
                 </li>
                 <li class="nav-item">
-                    <a href="#" class="nav-link">
+                    <a href="#" class="nav-link  {{ Route::currentRouteName() == 'smtp.create' ? 'active' : '' }} || {{ Route::currentRouteName() == 'smtp.index' ? 'active' : '' }}">
                         <i class="nav-icon fas fa-copy"></i>
                         <p>
                             Smtp Details
@@ -92,13 +92,13 @@
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="{{ route('smtp.create') }}" class="nav-link">
+                            <a href="{{ route('smtp.create') }}" class="nav-link {{ Route::currentRouteName() == 'smtp.create' ? 'active' : '' }}">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Add SMTP Details</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{ route('smtp.index') }}" class="nav-link">
+                            <a href="{{ route('smtp.index') }}" class="nav-link {{ Route::currentRouteName() == 'smtp.index' ? 'active' : '' }}">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Smtp Details List</p>
                             </a>
@@ -106,9 +106,9 @@
                     </ul>
                 </li>
 
-                {{-- @can('isAdmin') --}}
+                @can('mailchecker')
                 <li class="nav-item">
-                    <a href="#" class="nav-link">
+                    <a href="#" class="nav-link  {{ Route::currentRouteName() == 'mail.create' ? 'active' : '' }} || {{ Route::currentRouteName() == 'mail.index' ? 'active' : '' }}">
                         <i class="nav-icon fas fa-copy"></i>
                         <p>
                             Email
@@ -117,21 +117,22 @@
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="{{ route('mail.create') }}" class="nav-link">
+                            <a href="{{ route('mail.create') }}" class="nav-link {{ Route::currentRouteName() == 'mail.create' ? 'active' : '' }}">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Send Email</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="pages/layout/top-nav-sidebar.html" class="nav-link">
+                            <a href="{{ route('mail.index') }}" class="nav-link {{ Route::currentRouteName() == 'mail.index' ? 'active' : '' }}">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Email Log</p>
                             </a>
                         </li>
                     </ul>
                 </li>
+                @endcan
                 <li class="nav-item">
-                    <a href="/adminchecker" class="nav-link">
+                    <a href="{{ route('adminchecker.index')}}" class="nav-link {{ Route::currentRouteName() == 'adminchecker.index' ? 'active' : '' }}">
                         <i class="far fa-circle nav-icon"></i>
                         Admin Check</a>
                 </li>
@@ -140,7 +141,7 @@
                         <i class="far fa-circle nav-icon"></i>
                         Logout</a>
                 </li>
-                {{-- @endcan --}}
+                
 
 
 

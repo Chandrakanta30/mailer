@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Mail\MailSending;
 use App\Models\Smtp;
 use App\Models\User;
+use App\Models\AdminChecker;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
@@ -148,5 +149,67 @@ class MailSendingController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+
+    public function publishMail(){
+        $mails=AdminChecker::get();
+
+        foreach ($mails as $email) {
+            // $start_time = Carbon::parse($email->date_time);
+            // if (!is_null($start_time) && $start_time->isCurrentMinute() && $email->status = 0) {
+            //     $schedule->command('start:mail')->when($start_time->isCurrentMinute())->withoutOverlapping();
+            // }
+            $smtp=Smtp::find($email->smpt_id);
+            $data=[
+                'driver'=>'smtp',
+                'host'=>$smtp->smtp_host,
+                'port'=>$smtp->port,
+                'encryption'=>null,
+                'username'=>$smtp->user_name,
+                'password'=>$smtp->password,
+                'from'=>[
+                    'address'=>$smtp->from_email,
+                    'name'=>'no reply'
+                ]
+    
+            ];
+            Config::set('mail',$data);
+
+             $departments=explode(',',$email->department);
+            $techs=explode(',',$email->tech);
+            $attachments=[];
+            if($email->attachment){
+                $attachments=explode(',',$email->attachment);
+            }
+            
+
+            $techs=[];
+
+            $query=User::query();
+
+            if(sizeOf($departments)){
+                $query=$query->whereIN('department_id',$departments);
+            }
+            if(sizeof($techs)){
+                $query=$query->whereIN('technology_id',$techs);
+            }
+
+            $userslist=$query->get();
+            foreach ($userslist as $key => $value) {
+
+                $name=$value['user_firstname']." ".$value['user_lastname'];
+                $sendmailAddress=$value['user_emailaddress'];
+
+                $user =  ["subhankar.dutta@neosoftmail.com"];
+                $cc = ["chandrakanta.haransingh@neosoftmail.com"];
+                $mail = new MailSending($email->subject,$attachments,$email->message,$name);
+
+                $sendmailAddress='chandrakanta.haransingh@neosoftmail.com';
+
+                Mail::to($sendmailAddress)->queue($mail);
+            }
+        }
+        return $mails;
     }
 }

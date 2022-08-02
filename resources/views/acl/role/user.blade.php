@@ -31,7 +31,7 @@
             <select class="form-control select2" id="user" name="users[]" multiple="multiple">
                 <option value="">Select Role</option>
                 @foreach ($users as $user)
-                    <option value="{{ $user->user_id }}">{{ $user->user_emailaddress }}</option>
+                    <option value="{{ $user->id }}">{{ $user->user_emailaddress }}</option>
                 @endforeach
             </select>
 
@@ -67,17 +67,17 @@
                     all_users.forEach(function(user) {
                         var flag = false;
                         users.forEach(function(user2) {
-                            if (user.user_id == user2.user_id) {
+                            if (user.id == user2.id) {
                                 flag = true;
                             }
                         });
 
                         if (flag) {
-                            str += '<option value="' + user.user_id +
+                            str += '<option value="' + user.id +
                                 '" selected>' + user.user_emailaddress +
                                 '</option>';
                         } else {
-                            str += '<option value="' + user.user_id + '">' + user
+                            str += '<option value="' + user.id + '">' + user
                                 .user_emailaddress + '</option>';
                         }
                     });

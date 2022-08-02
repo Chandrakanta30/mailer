@@ -17,6 +17,16 @@ class AdminChecker extends Model
 
     public function getActionAttribute()
     {
-        return '<a href="'.route('adminchecker.edit',$this->id).'" class="btn btn-primary btn-sm">Accept</a>';
+        if($this->status==0){
+            $action='';
+             $action='<a href="'.route('mailrequest.accept',$this->id).'" class="btn btn-success btn-sm">Accept</a>';
+            $action.= '<a href="'.route('mailrequest.reject',$this->id).'" class="btn btn-danger btn-sm">Accept</a>';
+            return $action;
+        }elseif($this->status==1){
+            return 'Accepted';
+        }else{
+            return 'Rejected';
+        }
+        
     }
 }

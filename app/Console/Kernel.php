@@ -7,6 +7,11 @@ use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
 class Kernel extends ConsoleKernel
 {
+
+    protected $commands=[
+        'App\Console\Commands\StartMailCommand',
+        'App\Console\Commands\EndMailCommand'
+    ];
     /**
      * Define the application's command schedule.
      *
@@ -15,7 +20,20 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        // $schedule->command('inspire')->hourly();
+
+        $schedule->command('start:mail')->withoutOverlapping();
+        // $promos = Promotions::all();
+
+        // foreach ($promos as $promo) {
+        //     $start_time = Carbon::parse($promo->start_time);
+        //     $end_time = Carbon::parse($promo->end_time);
+
+        //     if (!is_null($start_time) && $start_time->isCurrentMinute() && $promo->status = 0) {
+        //         $schedule->command('start:promo')->when($start_time->isCurrentMinute())->withoutOverlapping();
+        //     } elseif (!is_null($end_time) && $end_time->isCurrentMinute() && $promo->status = 1) {
+        //         $schedule->command('end:promo')->when($end_time->isCurrentMinute())->withoutOverlapping();
+        //     }
+        // }
     }
 
     /**

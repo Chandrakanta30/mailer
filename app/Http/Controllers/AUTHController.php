@@ -93,4 +93,8 @@ class AUTHController extends Controller
         auth()->logout();
         return redirect('/login');
     }
+
+    public function home(){
+        return view('welcome');
+    }
 }
