@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ACLPermissions;
 use App\Http\Controllers\AdminCheckerController;
 use App\Http\Controllers\AUTHController;
 use Illuminate\Support\Facades\Route;
@@ -25,6 +26,14 @@ Route::resource('login',AUTHController::class);
 Route::get('/login',[AUTHController::class,'index'])->name('login');
 
 Route::middleware('auth')->group(function(){
+    Route::get('add-role',function(){
+        return view('acl.role.addroles');
+
+    });
+    Route::get('add-permission-info',function(){
+        return view('acl.permission.addpermission');
+
+    });
     Route::get('/logout',[AUTHController::class,'logout'])->name('logout');
     Route::get('/', function () {
         return view('welcome');
@@ -34,6 +43,7 @@ Route::middleware('auth')->group(function(){
     Route::resource('mail',MailSendingController::class);
     Route::resource('role',Role::class);
     Route::resource('acl-user',UserRole::class);
+    Route::resource('permission',ACLPermissions::class);
 
     Route::post('/mail-accept',[AdminCheckerController::class,'accept'])->name('adminchecker.accept');
     Route::post('/mail-reject',[AdminCheckerController::class,'accept'])->name('adminchecker.reject');

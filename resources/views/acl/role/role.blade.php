@@ -3,6 +3,17 @@
 
 @section('main-content')
     <div class="content-wrapper" style="min-height: 1345.31px;">
+        @if (Session::has('success'))
+            <div class="alert alert-success">
+                {{ Session::get('success') }}
+            </div>
+        @endif
+        {{-- Role add button --}}
+        <div class="row">
+            <div class="col-md-12 d-flex justify-content-end mt-4">
+                <a href="{{ url('/add-role') }}" class="btn btn-primary">Add Role</a>
+            </div>
+        </div>
         <section class="content-header">
             <div class="container-fluid">
                 <div class="row mb-2">
@@ -19,18 +30,50 @@
             </div>
         </section>
         <section class="content">
-            {{-- //select2 --}}
-            <select class="form-control select2" id="roles">
-                <option value="">Select Role</option>
-                @foreach ($roles as $role)
-                    <option value="{{ $role->id }}">{{ $role->name }}</option>
-                @endforeach
-            </select>
-            <div id="jstree">
-                <!-- in this example the tree is populated from inline HTML -->
+            {{-- //make table for show --}}
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">Roles</h3>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-12">
 
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Name</th>
+                                        <th>Slug</th>
+                                        <th>Guard</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach ($roles as $role)
+                                        <tr>
+                                            <td>{{ $role->id }}</td>
+                                            <td>{{ $role->name }}</td>
+                                            <td>{{ $role->slug }}</td>
+                                            <td>{{ $role->guard_name }}</td>
+                                            <td>
+                                                <a href="{{ route('role.edit', $role->id) }}"
+                                                    class="btn btn-primary">Edit</a>
+                                                <form action="{{ route('role.destroy', $role->id) }}" method="POST"
+                                                    style="display: inline-block;">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="submit" class="btn btn-danger">Delete</button>
+                                                </form>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <button class="py-2 my-5 btn btn-primary" id="permission_submit">Submit</button>
         </section>
     </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.2.1/jstree.min.js"></script>

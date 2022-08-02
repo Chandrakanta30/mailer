@@ -35,7 +35,12 @@ class Role extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $role = new \App\Models\acl_roles;
+        $role->name = $request->name;
+        $role->slug = $request->slug;
+        $role->guard_name = 'web';
+        $role->save();
+        return redirect()->route('role.index')->with('success','Role Added Successfully');
     }
 
     /**
@@ -57,7 +62,8 @@ class Role extends Controller
      */
     public function edit($id)
     {
-        //
+        $role = \App\Models\acl_roles::find($id);
+        return view('acl.role.editrole',compact('role'));
     }
 
     /**
@@ -69,7 +75,11 @@ class Role extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $role = \App\Models\acl_roles::find($id);
+        $role->name = $request->name;
+        $role->slug = $request->slug;
+        $role->save();
+        return redirect()->route('role.index')->with('success','Role Updated Successfully');
     }
 
     /**
@@ -80,7 +90,10 @@ class Role extends Controller
      */
     public function destroy($id)
     {
-        //
+        $role = \App\Models\acl_roles::find($id);
+        $role->delete();
+        return redirect()->route('role.index')->with('success','Role Deleted Successfully');
+
     }
     public function getPermissions(Request $request)
     {
