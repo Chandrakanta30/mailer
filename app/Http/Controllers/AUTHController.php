@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\EmployeeLogin;
+use App\Models\AdminChecker;
 
 class AUTHController extends Controller
 {
@@ -95,6 +97,11 @@ class AUTHController extends Controller
     }
 
     public function home(){
-        return view('welcome');
+        $registered_employeed=EmployeeLogin::count();
+        $pending_verification_mails=AdminChecker::where('status',0)->count();
+        $pending_execution_mails=AdminChecker::where('status',1)->where('is_executed',0)->count();
+        $completed_mails=AdminChecker::where('is_executed',1)->count();
+
+        return view('welcome',compact('registered_employeed','pending_verification_mails','pending_execution_mails','completed_mails'));
     }
 }

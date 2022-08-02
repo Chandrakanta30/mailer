@@ -48,7 +48,15 @@ class StartMailCommand extends Command
      */
     public function handle()
     {
-        $mails=AdminChecker::get();
+        $end_time = Carbon::now()->format('Y-m-d H:i:s');
+        $start_time = Carbon::now()->subMinute(15)->format('Y-m-d H:i:s');
+        $mails=AdminChecker::whereBetween('date_time',[$start_time,$end_time])->where('status',1)->where('is_executed',0)->get();
+        
+
+    print_r("End Time".$end_time."<br>");
+    print_r("start time".$start_time."<br>");
+    print_r($mails);
+
 
         foreach ($mails as $email) {
             // $start_time = Carbon::parse($email->date_time);
@@ -63,6 +71,7 @@ class StartMailCommand extends Command
                
                
             // }
+
             $smtp=Smtp::find($email->smpt_id);
             $data=[
                 'driver'=>'smtp',

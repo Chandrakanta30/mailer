@@ -47,7 +47,19 @@
                                             <td>
                                                 {{$item->user_emailaddress}}
                                             </td>
-                                            <td></td>
+                                            <td>
+
+                                                <a href="{{ route('employee.edit', $item->id) }}"
+                                                    class="btn btn-primary">Edit</a>
+                                                <form action="{{ route('employee.destroy', $item->id) }}" method="POST"
+                                                    style="display: inline-block;">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="submit" class="btn btn-danger">Delete</button>
+                                                </form>
+
+
+                                            </td>
                                         </tr>
                                             
                                         @endforeach

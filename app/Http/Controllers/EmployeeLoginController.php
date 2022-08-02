@@ -62,7 +62,9 @@ class EmployeeLoginController extends Controller
      */
     public function edit($id)
     {
-        //
+       $emplogin=EmployeeLogin::find($id);
+       return view("employee.edit",compact('emplogin'));
+
     }
 
     /**
@@ -74,7 +76,14 @@ class EmployeeLoginController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $employee=EmployeeLogin::find($id);
+        $employee->name=$request->name;
+        $employee->user_emailaddress=$request->email;
+        if($request->password){
+            $employee->password=bcrypt($request->password);
+        }
+        $employee->save();
+        return redirect(route('employee.index'));
     }
 
     /**
@@ -85,6 +94,8 @@ class EmployeeLoginController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $login = EmployeeLogin::find($id);
+        $login->delete();
+        return redirect()->route('employee.index')->with('success','Role Deleted Successfully');
     }
 }

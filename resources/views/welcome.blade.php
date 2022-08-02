@@ -30,7 +30,7 @@
                     <!-- small box -->
                     <div class="small-box bg-info">
                         <div class="inner">
-                            <h3>150</h3>
+                            <h3>{{$registered_employeed}}</h3>
 
                             <p>Total Users</p>
                         </div>
@@ -45,7 +45,7 @@
                     <!-- small box -->
                     <div class="small-box bg-success">
                         <div class="inner">
-                            <h3>53</h3>
+                            <h3>{{$pending_verification_mails}}</h3>
 
                             <p>Pending Mail Approvals</p>
                         </div>
@@ -60,7 +60,7 @@
                     <!-- small box -->
                     <div class="small-box bg-warning">
                         <div class="inner">
-                            <h3>44</h3>
+                            <h3>{{$completed_mails}}</h3>
 
                             <p>Approved Mails</p>
                         </div>
@@ -74,7 +74,7 @@
                     <!-- small box -->
                     <div class="small-box bg-danger">
                         <div class="inner">
-                            <h3>65</h3>
+                            <h3>{{$pending_execution_mails}}</h3>
 
                             <p>Mails to be sent</p>
                         </div>
