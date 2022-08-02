@@ -43,7 +43,7 @@
                                     <tr>
                                         <th>#</th>
                                         <th>Name</th>
-                                        <th>Slug</th>
+                                        <th>Display name</th>
                                         <th>Guard</th>
                                         <th>Action</th>
                                     </tr>
@@ -53,7 +53,7 @@
                                         <tr>
                                             <td>{{ $permission->id }}</td>
                                             <td>{{ $permission->name }}</td>
-                                            <td>{{ $permission->slug }}</td>
+                                            <td>{{ $permission->display_name }}</td>
                                             <td>{{ $permission->guard_name }}</td>
                                             <td>
                                                 <a href="{{ route('permission.edit', $permission->id) }}"
