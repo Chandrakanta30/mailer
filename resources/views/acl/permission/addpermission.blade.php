@@ -8,6 +8,11 @@
                 <label for="name">Permissions Name</label>
                 <input type="text" class="form-control" id="name" name="name" placeholder="Enter Permissions Name">
             </div>
+            <div class="form-group">
+                <label for="slug">Display name</label>
+                <input type="text" class="form-control" id="slug" name="display_name"
+                    placeholder="Enter Permissions Slug">
+            </div>
             <button type="submit" class="btn btn-primary">Submit</button>
         </form>
     </div>

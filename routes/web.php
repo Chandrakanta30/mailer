@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ACLPermissions;
 use App\Http\Controllers\AdminCheckerController;
+use App\Http\Controllers\AssignRoleToPermission;
 use App\Http\Controllers\AUTHController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\EmployeeLoginController;
@@ -58,6 +59,8 @@ Route::middleware('auth')->group(function(){
     Route::post('assign_role_to_user',[UserRole::class,'assign_role_to_user'])->name('assign_role_to_user');
 
     Route::get('publish-mail',[MailSendingController::class,'publishMail'])->name('publishmail');
+    Route::resource('assign-role-permission', AssignRoleToPermission::class);
+    Route::post('assingRoleToPermissions',[AssignRoleToPermission::class,'assingRoleToPermissions'])->name('assingRoleToPermissions');
 
 });
 

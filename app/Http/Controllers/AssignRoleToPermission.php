@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\acl_permission;
 use Illuminate\Http\Request;
 
-class ACLPermissions extends Controller
+class AssignRoleToPermission extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -13,8 +14,9 @@ class ACLPermissions extends Controller
      */
     public function index()
     {
+        $roles = \App\Models\acl_roles::all();
         $permissions = \App\Models\acl_permission::all();
-        return view('acl.permission.permission',compact('permissions'));
+        return view('acl.role_has_permissions.rolepermissonmanager',compact('roles','permissions'));
     }
 
     /**
@@ -35,12 +37,10 @@ class ACLPermissions extends Controller
      */
     public function store(Request $request)
     {
-        $permission = new \App\Models\acl_permission;
-        $permission->name = $request->name;
-        $permission->guard_name = 'web';
-        $permission->display_name = $request->display_name;
-        $permission->save();
-        return redirect()->route('permission.index')->with('success','Permission Added Successfully');
+        $role = \App\Models\acl_roles::find($request->role_id);
+        $permission = \App\Models\acl_permission::find($request->permission_id);
+        $role->givePermissionTo($permission);
+        return redirect()->route('role.index')->with('success','Permission Assigned Successfully');
     }
 
     /**
@@ -62,8 +62,7 @@ class ACLPermissions extends Controller
      */
     public function edit($id)
     {
-        $permission = \App\Models\acl_permission::find($id);
-        return view('acl.permission.edit',compact('permission'));
+        //
     }
 
     /**
@@ -75,23 +74,18 @@ class ACLPermissions extends Controller
      */
     public function update(Request $request, $id)
     {
-        $permission = \App\Models\acl_permission::find($id);
-        $permission->name = $request->name;
-        $permission->save();
-        return redirect()->route('permission.index')->with('success','Permission Updated Successfully');
+        //
     }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
+    public function assingRoleToPermissions(Request $request)
     {
-        $permission = \App\Models\acl_permission::find($id);
-        $permission->delete();
-        return redirect()->route('permission.index')->with('success','Permission Deleted Successfully');
+        $role = \App\Models\acl_roles::find($request->role_id);
+        $role->revokePermissionTo(acl_permission::all());
+        foreach($request->selected_permission as $permission_id)
+        {
+            $permisssion = acl_permission::find($permission_id);
+            $role->syncPermissions($permisssion);
+        }
+        return response()->json(['success' => 'Permission added successfully.'], 200);
     }
 
 }
