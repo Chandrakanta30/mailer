@@ -15,7 +15,7 @@ class AdminCheckerController extends Controller
      */
     public function index()
     {
-        $admincheckers = AdminChecker::all();
+        $admincheckers = AdminChecker::paginate();
         return view('admin.indextable',compact('admincheckers'));
     }
     public function create()
@@ -24,21 +24,11 @@ class AdminCheckerController extends Controller
     }
     public function store(Request $request)
     {
-        // AdminChecker::create($request->all());
-        /**
-         *"_token" => "SSchMxTZMWB2MNIQGXEimWOVIGmjLdJ7dgRlorDv"
-            "smtp_server" => "1"
-            "department" => array:3 [▶]
-            "tech" => array:4 [▶]
-            "subject" => "Hello Test"
-            "body" => "<p>Hello te,mpo</p><p>teorlpm</p>"
-            "datetime" => "2022-07-25T12:21"
-         *
-         */
+       
         //make department array to string
         $department = implode(',',$request->department);
         //make tech array to string
-        print_r($department);
+        // print_r($department);
         $tech = implode(',',$request->tech);
         // if($request->hasFile('attachment')){
         //     $file = $request->file('attachment');
@@ -55,10 +45,11 @@ class AdminCheckerController extends Controller
             'tech' => $tech,
             'subject' => $request->subject,
             'message' => $request->body,
-            'date_time' => $request->datetime,
+            'date_time' => $request->datetime." ".$request->time.":00",
         ]);
 
-        dd($request->all());
+        // dd($request->all());
+        return redirect()->back();
     }
     public function show($id)
     {
@@ -97,6 +88,8 @@ class AdminCheckerController extends Controller
     public function getInfos()
     {
         $adminchecker = AdminChecker::all();
+
+
         return response()->json($adminchecker);
     }
     //accept the request

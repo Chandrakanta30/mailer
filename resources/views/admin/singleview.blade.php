@@ -41,9 +41,7 @@
                             </div>
 
 
-                            <form action="{{ route('adminchecker.store') }}" id="loginform" class="login-form"
-                                method="POST" enctype="multipart/form-data">
-                                @csrf
+                           
                                 <div class="card-body">
                                     <div class="form-group">
                                         <label for="exampleInputEmail1">Selected Smtp Server</label>
@@ -102,20 +100,18 @@
                                 </div>
 
                                 <div class="card-footer d-flex">
-                                    <form action="{{ route('adminchecker.accept', $info->id) }}" method="POST">
+                                    <form action="{{ route('mailrequest.accept', $info->id) }}" method="POST">
                                         @csrf
-                                        @method('POST')
                                         <button type="submit" class="btn btn-success">Accept</button>
                                     </form>
 
-                                    <form action="{{ route('adminchecker.reject', $info->id) }}" method="POST"
+                                    <form action="{{ route('mailrequest.reject', $info->id) }}" method="POST"
                                         class="mx-2">
                                         @csrf
                                         @method('POST')
                                         <button type="submit" class="btn btn-danger">Reject</button>
                                     </form>
                                 </div>
-                            </form>
                         </div>
                     </div>
                 </div>

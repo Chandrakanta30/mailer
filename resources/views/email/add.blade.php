@@ -49,7 +49,7 @@
                                             id="dept" required>
                                             <option value="">Select Department</option>
                                             @foreach ($departments as $department)
-                                                <option value="{{ $department->id }}">{{ $department->department_name }}
+                                                <option value="{{ $department->id }}" selected>{{ $department->department_name }}
                                                 </option>
                                             @endforeach
                                         </select>
@@ -60,7 +60,7 @@
                                             id="techs" required>
                                             <option value="">Select Tech</option>
                                             @foreach ($techs as $tech)
-                                                <option value="{{ $tech->category_id }}">{{ $tech->category_name }}
+                                                <option value="{{ $tech->category_id }}" selected>{{ $tech->category_name }}
                                                 </option>
                                             @endforeach
                                         </select>
@@ -91,9 +91,59 @@
 
 
                                     <div class="form-group">
-                                        <label for="subject">Date and Time to send</label>
-                                        <input type="datetime-local" name="datetime" id="datetime" class="form-control"
+                                        <label for="subject">Date</label>
+                                        <input type="date" name="datetime" id="datetime" class="form-control"
                                             placeholder="Date time" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="subject">Time</label>
+                                        <select class="form-control" name="time">
+                                            <option value="10:00">10:00 Am</option>
+                                            <option value="10:15">10:15 Am</option>
+                                            <option value="10:45">10:45 Am</option>
+                                            <option value="11:00">11:00 Am</option>
+                                            <option value="11:15">11:15 Am</option>
+                                            <option value="11:45">11:45 Am</option>
+
+                                            <option value="12:00">12:00 Pm</option>
+                                            <option value="12:15">12:15 Pm</option>
+                                            <option value="12:45">12:45 Pm</option>
+
+                                            <option value="01:00">01:00 Pm</option>
+                                            <option value="01:15">01:15 Pm</option>
+                                            <option value="01:45">01:45 Pm</option>
+
+                                            <option value="02:00">02:00 Pm</option>
+                                            <option value="02:15">02:15 Pm</option>
+                                            <option value="02:45">02:45 Pm</option>
+                                            <option value="03:00">03:00 Pm</option>
+                                            <option value="03:15">03:15 Pm</option>
+                                            <option value="03:45">03:45 Pm</option>
+                                            <option value="04:00">04:00 Pm</option>
+                                            <option value="04:15">04:15 Pm</option>
+                                            <option value="04:45">04:45 Pm</option>
+                                            <option value="05:00">05:00 Pm</option>
+                                            <option value="05:15">05:15 Pm</option>
+                                            <option value="05:45">05:45 Pm</option>
+                                            <option value="06:00">06:00 Pm</option>
+                                            <option value="06:15">06:15 Pm</option>
+                                            <option value="06:45">06:45 Pm</option>
+                                            <option value="07:00">07:00 Pm</option>
+                                            <option value="07:15">07:15 Pm</option>
+                                            <option value="07:45">07:45 Pm</option>
+                                            <option value="08:00">08:00 Pm</option>
+                                            <option value="08:15">08:15 Pm</option>
+                                            <option value="08:45">08:45 Pm</option>
+                                            <option value="09:00">09:00 Pm</option>
+                                            <option value="09:15">09:15 Pm</option>
+                                            <option value="09:45">09:45 Pm</option>
+                                            <option value="10:00">10:00 Pm</option>
+                                            <option value="10:15">10:15 Pm</option>
+                                            <option value="10:45">10:45 Pm</option>
+
+
+
+                                        </select>
                                     </div>
                                 </div>
 

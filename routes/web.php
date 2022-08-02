@@ -9,6 +9,7 @@ use App\Http\Controllers\MailSendingController;
 use App\Http\Controllers\Role;
 use App\Http\Controllers\SMTPController;
 use App\Http\Controllers\UserRole;
+use App\Http\Controllers\MailController;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,6 +26,10 @@ use App\Http\Controllers\UserRole;
 Route::resource('login',AUTHController::class);
 Route::get('/login',[AUTHController::class,'index'])->name('login');
 
+
+Route::get('send-mail', [MailController::class, 'sendMail'])->name('sendMail');
+
+
 Route::middleware('auth')->group(function(){
     Route::get('add-role',function(){
         return view('acl.role.addroles');
@@ -35,9 +40,7 @@ Route::middleware('auth')->group(function(){
 
     });
     Route::get('/logout',[AUTHController::class,'logout'])->name('logout');
-    Route::get('/', function () {
-        return view('welcome');
-    })->name('home');
+    Route::get('/', [AUTHController::class,'home'])->name('home');
     Route::resource('employee',EmployeeLoginController::class);
     Route::resource('smtp',SMTPController::class);
     Route::resource('mail',MailSendingController::class);
@@ -45,12 +48,16 @@ Route::middleware('auth')->group(function(){
     Route::resource('acl-user',UserRole::class);
     Route::resource('permission',ACLPermissions::class);
 
-    Route::post('/mail-accept',[AdminCheckerController::class,'accept'])->name('adminchecker.accept');
-    Route::post('/mail-reject',[AdminCheckerController::class,'accept'])->name('adminchecker.reject');
+    Route::post('/mail-accept/{id}',[AdminCheckerController::class,'accept'])->name('mailrequest.accept');
+    Route::post('/mail-reject/{id}',[AdminCheckerController::class,'reject'])->name('mailrequest.reject');
     Route::resource('adminchecker',AdminCheckerController::class);
     Route::get('/adminchecks',[AdminCheckerController::class,'getInfos'])->name('adminchecker.getInfos');
     Route::get('/get-my-roles', [Role::class,'getPermissions'])->name('my-roles');
     Route::post('/add-permission', [Role::class,'addPermission'])->name('add-permission');
     Route::get('getUserByRole',[UserRole::class,'getUserByRole'])->name('get_users_by_role');
     Route::post('assign_role_to_user',[UserRole::class,'assign_role_to_user'])->name('assign_role_to_user');
+
+    Route::get('publish-mail',[MailSendingController::class,'publishMail'])->name('publishmail');
+
 });
+
