@@ -45,7 +45,7 @@ class SMTPController extends Controller
         $smtp->from_email=($request->from_mail);
         $smtp->encryption=$request->encryption;
         $smtp->save();
-        return redirect()->back();
+        return redirect()->route('smtp.index')->with('success','SMTP added successfully');
     }
 
     /**
@@ -67,7 +67,8 @@ class SMTPController extends Controller
      */
     public function edit($id)
     {
-        //
+        $smtp=Smtp::find($id);
+        return view('smtp.edit',compact('smtp'));
     }
 
     /**
@@ -79,7 +80,16 @@ class SMTPController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $smtp=Smtp::find($id);
+        $smtp->name=$request->mailer_name;
+        $smtp->smtp_host=$request->host;
+        $smtp->port=($request->port);
+        $smtp->user_name=$request->username;
+        $smtp->password=$request->password;
+        $smtp->from_email=($request->from_mail);
+        $smtp->encryption=$request->encryption;
+        $smtp->save();
+        return redirect()->route('smtp.index')->with('success','Updated Successfully');
     }
 
     /**
@@ -90,6 +100,8 @@ class SMTPController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $smtp=Smtp::find($id);
+        $smtp->delete();
+        return redirect()->route('smtp.index')->with('success','Deleted Successfully');
     }
 }

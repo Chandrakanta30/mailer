@@ -15,7 +15,7 @@ class AdminCheckerController extends Controller
      */
     public function index()
     {
-        $admincheckers = AdminChecker::paginate();
+        $admincheckers = AdminChecker::paginate(10);
         return view('admin.indextable',compact('admincheckers'));
     }
     public function create()
@@ -24,7 +24,7 @@ class AdminCheckerController extends Controller
     }
     public function store(Request $request)
     {
-       
+
         //make department array to string
         $department = implode(',',$request->department);
         //make tech array to string
@@ -98,15 +98,16 @@ class AdminCheckerController extends Controller
         $adminchecker = AdminChecker::find($id);
         $adminchecker->status = 1;
         $adminchecker->save();
-        return redirect()->route('adminchecker.index');
+        return redirect()->route('adminchecker.index')->with('success','Accepted Successfully');
     }
     //reject the request
-    public function reject($id)
+    public function reject(Request $request,$id)
     {
         $adminchecker = AdminChecker::find($id);
+        $adminchecker->suggestion = $request->suggestion;
         $adminchecker->status = 2;
         $adminchecker->save();
-        return redirect()->route('adminchecker.index');
+        return redirect()->route('adminchecker.index')->with('success','Rejected Successfully');
     }
 
 }
