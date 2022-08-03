@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use App\Models\ModelHasRole,App\Models\acl_roles,App\Models\EmployeeLogin;
 class UserRole extends Controller
 {
     /**
@@ -13,8 +13,8 @@ class UserRole extends Controller
      */
     public function index()
     {
-        $roles = \App\Models\acl_roles::all();
-        $users = \App\Models\EmployeeLogin::all();
+        $roles = acl_roles::all();
+        $users = EmployeeLogin::all();
         // return $users;
         return view('acl.role.user',compact('users','roles'));
     }
@@ -87,8 +87,8 @@ class UserRole extends Controller
     public function getUserByRole(Request $request)
     {
         $role_id = $request->role_id;
-        $users2 = \App\Models\EmployeeLogin::all();
-        $users = \App\Models\EmployeeLogin::whereHas('roles', function($q) use ($role_id) {
+        $users2 = EmployeeLogin::all();
+        $users = EmployeeLogin::whereHas('roles', function($q) use ($role_id) {
             $q->where('id', $role_id);
         })->get();
         return response()->json(['users'=>$users,'users2'=>$users2]);
@@ -97,9 +97,15 @@ class UserRole extends Controller
     {
         //you will recive a set of user ids
         foreach($request->user_ids as $user_id){
-            $user = \App\Models\EmployeeLogin::find($user_id);
+            $user = EmployeeLogin::find($user_id);
             $user->update(['roleid'=>$request->role_id]);
             $user->save();
+            ModelHasRole::where('model_id',$user_id)->delete();
+            $user_role=new ModelHasRole();
+            $user_role->role_id=$request->role_id;
+            $user_role->model_type='App\Models\EmployeeLogin';
+            $user_role->model_id=$user_id;
+            $user_role->save();
         }
         return response()->json(['success'=>'Role Assigned Successfully']);
     }

@@ -28,7 +28,7 @@
 
                 </li>
 
-
+                @can('users')
                 <li class="nav-item">
                     <a href="#" class="nav-link {{ Route::currentRouteName() == 'employee.create' ? 'active' : '' }} || {{ Route::currentRouteName() == 'employee.index' ? 'active' : '' }}">
                         <i class="nav-icon fas fa-copy"></i>
@@ -52,7 +52,9 @@
                         </li>
                     </ul>
                 </li>
+                @endcan
 
+                @can('acl')
                 <li class="nav-item">
                     <a href="#" class="nav-link">
                         <i class="nav-icon fas fa-copy"></i>
@@ -82,6 +84,8 @@
                         </li>
                     </ul>
                 </li>
+                @endcan
+                @can('smtp')
                 <li class="nav-item">
                     <a href="#" class="nav-link  {{ Route::currentRouteName() == 'smtp.create' ? 'active' : '' }} || {{ Route::currentRouteName() == 'smtp.index' ? 'active' : '' }}">
                         <i class="nav-icon fas fa-copy"></i>
@@ -105,8 +109,9 @@
                         </li>
                     </ul>
                 </li>
+                @endcan
 
-                @can('mailchecker')
+                @can('email')
                 <li class="nav-item">
                     <a href="#" class="nav-link  {{ Route::currentRouteName() == 'mail.create' ? 'active' : '' }} || {{ Route::currentRouteName() == 'mail.index' ? 'active' : '' }}">
                         <i class="nav-icon fas fa-copy"></i>
@@ -131,11 +136,13 @@
                     </ul>
                 </li>
                 @endcan
+                @can('emailapproval')
                 <li class="nav-item">
                     <a href="{{ route('adminchecker.index')}}" class="nav-link {{ Route::currentRouteName() == 'adminchecker.index' ? 'active' : '' }}">
                         <i class="far fa-circle nav-icon"></i>
                         Admin Check</a>
                 </li>
+                @endcan
                 <li class="nav-item">
                     <a href="{{ route('logout') }}" class="nav-link">
                         <i class="far fa-circle nav-icon"></i>
